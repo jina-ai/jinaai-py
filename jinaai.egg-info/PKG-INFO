@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: jinaai
+Version: 0.1.0
+Summary: Jina AI Python SDK
+Home-page: https://github.com/jina-ai/jinaai-py.git
+Author: Jina AI
+Author-email: guillaume.roncari@jina.ai

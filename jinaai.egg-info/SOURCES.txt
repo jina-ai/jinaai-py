@@ -1,0 +1,7 @@
+README.md
+setup.py
+jinaai/__init__.py
+jinaai.egg-info/PKG-INFO
+jinaai.egg-info/SOURCES.txt
+jinaai.egg-info/dependency_links.txt
+jinaai.egg-info/top_level.txt
