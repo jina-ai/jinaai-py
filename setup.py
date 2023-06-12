@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jinaai',
-    version='0.1.0',
+    version='0.1.1',
     author='Jina AI',
     author_email='guillaume.roncari@jina.ai',
     description='Jina AI Python SDK',

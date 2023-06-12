@@ -1,3 +1,3 @@
-rm -rf ../dist
+rm -rf dist
 python3 setup.py sdist bdist_wheel
-twine upload ../dist/*
+twine upload dist/*

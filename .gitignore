@@ -1,5 +1,8 @@
 # compiled output
 /node_modules
+/build
+/dist
+/**.egg-info
 
 # Logs
 logs
