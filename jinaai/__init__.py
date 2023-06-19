@@ -1,5 +1,6 @@
 from .clients.SceneXClient import SceneXClient
 from .clients.PromptPerfectClient import PromptPerfectClient
+from .clients.RationaleClient import RationaleClient
 from .utils import is_url, is_base64, image_to_base64
 
 class JinaAI:
@@ -10,11 +11,17 @@ class JinaAI:
         CCToken = f"Bearer {tokens['chatcat-token']}" if tokens else ''
         self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPToken })
         self.SXClient = SceneXClient(headers = { "x-api-key": SXToken })
-        #self.RAClient = RationaleClient(headers = { "x-api-key": RAToken })
+        self.RAClient = RationaleClient(headers = { "x-api-key": RAToken })
         #self.CCClient = ChatCatClient(headers = { "authorization": CCToken })
 
-    def decide(self):
-        raise Exception("rationale not implemented")
+    def decide(self, input, options=None):
+        if isinstance(input, list):
+            data = self.RAClient.from_array(input, options)
+        elif isinstance(input, str):
+            data = self.RAClient.from_string(input, options)
+        else:
+            data = input
+        return self.RAClient.decide(data, options)
 
     def optimize(self, input, options=None):
         if isinstance(input, list):
