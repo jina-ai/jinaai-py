@@ -1,0 +1,6 @@
+{
+    "error": {
+        "message": "No token provided",
+        "status": "UNAUTHENTICATED"
+    }
+}
