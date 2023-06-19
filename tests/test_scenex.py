@@ -18,7 +18,7 @@ jinaai = JinaAI(
 )
 
 def test_default_input():
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         input = ['https://picsum.photos/200']
         r1 = jinaai.describe({ "data": [
             {
@@ -36,7 +36,7 @@ def test_default_input():
         assert results[0]['i18n'].get('it')
 
 def test_image_url_input():
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         input = 'https://picsum.photos/200'
         r1 = jinaai.describe(input)
         results = r1['results']
@@ -56,7 +56,7 @@ def test_image_url_input():
         assert results[0]['i18n'].get('de')
 
 def test_image_url_arr_input():
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         input = ['https://picsum.photos/200', 'https://picsum.photos/300']
         r1 = jinaai.describe(input)
         results = r1['results']
@@ -78,7 +78,7 @@ def test_image_url_arr_input():
         assert results[1]['i18n'].get('fr')
 
 def test_raw_output():
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         input = ['https://picsum.photos/200', 'https://picsum.photos/300']
         r1 = jinaai.describe(input, { 'raw': True })
         r1_raw_result = r1['raw']['result']

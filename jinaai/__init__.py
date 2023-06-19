@@ -16,7 +16,7 @@ class JinaAI:
     def decide(self):
         raise Exception("rationale not implemented")
 
-    def optimize(self):
+    def optimize(self, input, options=None):
         if isinstance(input, list):
             data = self.PPClient.from_array(input, options)
         elif isinstance(input, str):

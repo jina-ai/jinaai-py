@@ -10,7 +10,7 @@ from mock.HTTPClientMock import mock_post_method
 
 def test_auth_ko_no_token():
     jinaai = JinaAI()
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         try:
             jinaai.describe('https://picsum.photos/200')
             assert True == False
@@ -27,6 +27,6 @@ def test_auth_ok():
             'chatcat-token': 'some-fake-token',
         }
     )
-    with mock_post_method(jinaai):
+    with mock_post_method(jinaai.SXClient):
         r = jinaai.describe('https://picsum.photos/200')
         assert r["results"][0]["output"] and len(r["results"][0]["output"]) > 0

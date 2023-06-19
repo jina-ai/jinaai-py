@@ -73,15 +73,19 @@ def post(self, url, data):
     if hasAuthHeader(self.headers) == False:
         responseData = AuthKOResponse
     else:
-        responseData = {
-            "/describe": SceneXResponse(data),
-            "/analysisApi": RationaleResponse(data),
-            "/optimizeBatch": PromptPerfectResponse(data),
-            "/completion": ChatCatResponse(data),
-        }.get(url, NotImplementedResponse)
+        if url == "/describe":
+            responseData = SceneXResponse(data)
+        elif url == "/analysisApi":
+            responseData = RationaleResponse(data)
+        elif url == "/optimizeBatch":
+            responseData = PromptPerfectResponse(data)
+        elif url == "/completion":
+            responseData = ChatCatResponse(data)
+        else:
+            responseData = NotImplementedResponse
     if "error" in responseData:
         raise Exception(responseData["error"])
     return responseData
 
-def mock_post_method(jinaai):
-    return patch.object(jinaai.SXClient.__class__, "post", post)
+def mock_post_method(xClient):
+    return patch.object(xClient.__class__, "post", post)
