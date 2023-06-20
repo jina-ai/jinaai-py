@@ -39,7 +39,7 @@ class ChatCatClient(HTTPClient):
         }
 
     def to_simplified_output(self, output):
-        if not output['responseContent'] or output['responseContent'] == '':
+        if 'responseContent' not in output or output['responseContent'] == '':
             raise Exception('Remote API Error, bad output: ' + str(output))
         return {
             'output': output['responseContent'],
