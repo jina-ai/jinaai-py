@@ -4,6 +4,7 @@ import time
 from .responses.SceneXResponse import SceneXResponse
 from .responses.PromptPerfectResponse import PromptPerfectResponse
 from .responses.RationaleResponse import RationaleResponse
+from .responses.ChatCatResponse import ChatCatResponse
 
 def loadJsonResponse(filename):
     with open("mock/responses/" + filename, "r") as file:
@@ -11,9 +12,6 @@ def loadJsonResponse(filename):
 
 AuthKOResponse = loadJsonResponse("Auth.KO.response.json")
 NotImplementedResponse = loadJsonResponse("NotImplemented.response.json")
-
-def ChatCatResponse(data):
-    return NotImplementedResponse
 
 def hasAuthHeader (headers):
     if "x-api-key" in headers and headers["x-api-key"] != "":

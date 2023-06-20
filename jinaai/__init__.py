@@ -1,6 +1,7 @@
 from .clients.SceneXClient import SceneXClient
 from .clients.PromptPerfectClient import PromptPerfectClient
 from .clients.RationaleClient import RationaleClient
+from .clients.ChatCatClient import ChatCatClient
 from .utils import is_url, is_base64, image_to_base64
 
 class JinaAI:
@@ -12,7 +13,7 @@ class JinaAI:
         self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPToken })
         self.SXClient = SceneXClient(headers = { "x-api-key": SXToken })
         self.RAClient = RationaleClient(headers = { "x-api-key": RAToken })
-        #self.CCClient = ChatCatClient(headers = { "authorization": CCToken })
+        self.CCClient = ChatCatClient(headers = { "authorization": CCToken })
 
     def decide(self, input, options=None):
         if isinstance(input, list):
@@ -41,8 +42,14 @@ class JinaAI:
             data = input
         return self.SXClient.describe(data, options)
 
-    def generate(self):
-        raise Exception("chatcat not implemented")
+    def generate(self, input, options=None):
+        if isinstance(input, list):
+            data = self.CCClient.from_array(input, options)
+        elif isinstance(input, str):
+            data = self.CCClient.from_string(input, options)
+        else:
+            data = input
+        return self.CCClient.generate(data, options)
 
     def generate_image(self):
         raise Exception("banner not implemented")
