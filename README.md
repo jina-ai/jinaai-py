@@ -108,6 +108,8 @@ output = JinaAI.describe(input, options)
 |-------------------------|-------------------|----------
 | input                   | str / str array   | Image URL or Base64
 
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
 | options                 | dict              | 
 | options['algorithm']    | None / str        | Aqua / Bolt / Comet / Dune / Ember / Flash
 | options['features']     | None / str array  | high_quality, question_answer
@@ -115,10 +117,12 @@ output = JinaAI.describe(input, options)
 | options['question']     | None / str        | Question related to the picture(s)
 | options['style']        | None / str        | default / concise / prompt
 
-| output                  | dict              | results
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
+| output                  | dict              | 
 | output['results']       | dict array        | 
-| results['output']       | str               | The picture description
-| results['i18n']         | dict              | Contains one key for each item in languages
+| results[0]['output']    | str               | The picture description
+| results[0]['i18n']      | dict              | Contains one key for each item in languages
 | ...i18n['cn']           | str               | The translated picture description
 
 - JinaAi.optimize
@@ -129,8 +133,10 @@ output = JinaAI.optimize(input, options)
 
 | Variable                               | Type              | Value 
 |----------------------------------------|-------------------|----------
-| input                                  | str / str array   | Prompt to optimize
+| input                                  | str / str array   | Image URL or Base64 / prompt to optimize
 
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
 | options                                | dict              | 
 | options['targetModel']                 | None / str        | chatgpt / gpt-4 / stablelm-tuned-alpha-7b / claude / cogenerate / text-davinci-003 / dalle / sd / midjourney / kandinsky / lexica
 | options['features']                    | None / str array  | preview, no_spam, shorten, bypass_ethics, same_language, always_en, high_quality, redo_original_image, variable_subs, template_run
@@ -146,9 +152,11 @@ output = JinaAI.optimize(input, options)
 | options['timeout']                     | Number            | Default: 20000
 | options['target_language']             | None / str        | en / cn / de / fr / it...
 
-| output                                 | dict              | results
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
+| output                                 | dict              | 
 | output['results']                      | dict array        | 
-| results['output']                      | str               | The optimized prompt
+| results[0]['output']                      | str               | The optimized prompt
 
 - JinaAi.decide
 
@@ -159,11 +167,74 @@ output = JinaAI.decide(input, options)
 | Variable                               | Type              | Value 
 |----------------------------------------|-------------------|----------
 | input                                  | str / str array   | Decision to evaluate
+
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
 | options                                | dict              | 
 | options['analysis']                    | None / str        | proscons / swot / multichoice / outcomes
 | options['style']                       | None / str        | concise / professional / humor / sarcastic / childish / genZ
 | options['profileId']                   | None / str        | The id of the Personas you want to use
 
-| output                                 | dict              | results
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
+| output                                 | dict              | 
 | output['results']                      | dict array        | 
-| results['proscons']                    | dict              |
+| results[0]['proscons']                 | None / dict       |
+| ...proscons['pros']                    | dict              | Contains one key for each pros
+| ...proscons['pros']['pros1']           | str               | The explanation of the pros
+| ...proscons['cons']                    | dict              | Contains one key for each cons
+| ...proscons['cons']['cons1']           | str               | The explanation of the cons
+| ...proscons['bestChoice']              | str               | 
+| ...proscons['conclusion']              | str               | 
+| ...proscons['confidenceScore']         | number            | 
+| results[0]['swot']                     | None / dict       |
+| ...swot['strengths']                   | dict              | Contains one key for each strength
+| ...swot['strengths']['str1']           | str               | The explanation of the strength
+| ...swot['weaknesses']                  | dict              | Contains one key for each weakness
+| ...swot['weaknesses']['weak1']         | str               | The explanation of the weakness
+| ...swot['opportunities']               | dict              | Contains one key for each opportunity
+| ...swot['opportunities']['opp1']       | str               | The explanation of the opportunity
+| ...swot['threats']                     | dict              | Contains one key for each threat
+| ...swot['threats']['thre1']            | str               | The explanation of the threat
+| ...swot['bestChoice']                  | str               | 
+| ...swot['conclusion']                  | str               | 
+| ...swot['confidenceScore']             | number            | 
+| results[0]['multichoice']              | None / dict       | Contains one key for each choice
+| ...multichoice['choice1']              | str               | The value of the choice
+| results[0]['outcomes']                 | None / dict array |
+| ...outcomes[0]['children']             | None / dict array | a recursive array of results['outcomes']
+| ...outcomes[0]['label']                | str               | 
+| ...outcomes[0]['sentiment']            | str               | 
+
+- JinaAi.generate
+
+```python
+output = JinaAI.generate(input, options)
+```
+
+| Variable                               | Type                   | Value 
+|----------------------------------------|------------------------|----------
+| input                                  | str / str array        | Image URL or Base64 / prompt
+
+| Variable                               | Type                   | Value 
+|----------------------------------------|------------------------|----------
+| options                                | dict                   | 
+| options['role']                        | None / str             | user / assistant
+| options['name']                        | None / str             | The name of the author of this message
+| options['chatId']                      | None / str             | The id of the conversation to continue
+| options['stream']                      | None / boolean         | Whether to stream back partial progress, Default: false
+| options['temperature']                 | None / number          | Default: 1
+| options['top_p']                       | None / str             | Default: 1
+| options['stop']                        | None / str / str array | Up to 4 sequences where the API will stop generating further tokens
+| options['max_tokens']                  | None / number          | Default: infinite
+| options['presence_penalty']            | None / number          | Number between -2.0 and 2.0, Default: 0
+| options['frequency_penalty']           | None / number          | Number between -2.0 and 2.0, Default: 0
+| options['logit_bias']                  | None / dict            | The likelihood for a token to appear in the completion
+| ...logit_bias['tokenId']               | number                 | Bias value from -100 to 100
+
+| Variable                               | Type              | Value 
+|----------------------------------------|-------------------|----------
+| output                                 | dict              | 
+| output['output']                       | str               | The generated answer
+| output['chatId']                       | str               | The chatId to continue the conversation
+
