@@ -30,7 +30,7 @@ def post(self, url, data):
             responseData = RationaleResponse(data)
         elif url == "/optimizeBatch":
             responseData = PromptPerfectResponse(data)
-        elif url == "/completion":
+        elif url == "/completions":
             responseData = ChatCatResponse(data)
         else:
             responseData = NotImplementedResponse

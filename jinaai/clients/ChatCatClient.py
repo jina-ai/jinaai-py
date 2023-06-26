@@ -39,15 +39,15 @@ class ChatCatClient(HTTPClient):
         }
 
     def to_simplified_output(self, output):
-        if 'responseContent' not in output or output['responseContent'] == '':
+        if 'choices' not in output or len(output['choices']) < 1 or output['choices'][0]['message']['content'] == '':
             raise Exception('Remote API Error, bad output: ' + str(output))
         return {
-            'output': output['responseContent'],
+            'output': output['choices'][0]['message']['content'],
             'chatId': output['chatId']
         }
 
     def generate(self, data, options = None):
-        raw_output = self.post('/completion', data)
+        raw_output = self.post('/completions', data)
         simplified_output = self.to_simplified_output(raw_output)
         if options and 'raw' in options:
             simplified_output['raw'] = raw_output

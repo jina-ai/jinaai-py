@@ -63,7 +63,12 @@ def test_raw_output():
         input_data = 'Give me an Hello World function in Typescript'
         r1 = jinaai.generate(input_data, {'raw': True})
         raw_response = r1['raw']
-        assert raw_response['responseContent']
-        assert len(raw_response['responseContent']) > 0
+        assert raw_response['choices']
+        assert len(raw_response['choices']) > 0
+        assert len(raw_response['choices'][0]['message']['content']) > 0
+        assert len(raw_response['choices'][0]['finish_reason']) > 0
+        assert raw_response['usage']
+        assert raw_response['usage']['prompt_tokens']
+        assert raw_response['usage']['completion_tokens']
+        assert raw_response['usage']['total_tokens']
         assert raw_response['chatId'] == 'aaaaaaaaaaaaaaaaaaaaaaaaaaa'
-
