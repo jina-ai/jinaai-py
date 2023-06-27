@@ -6,11 +6,11 @@ sys.path.append(root_dir)
 from jinaai import JinaAI
 
 jinaai = JinaAI(
-    tokens = {
-        'promptperfect-token': os.environ.get('PROMPTPERFECT_TOKEN', ''),
-        'scenex-token': os.environ.get('SCENEX_TOKEN', ''),
-        'rationale-token': os.environ.get('RATIONALE_TOKEN', ''),
-        'jinachat-token': os.environ.get('JINACHAT_TOKEN', '')
+    secrets = {
+        'promptperfect-secret': os.environ.get('PROMPTPERFECT_SECRET', ''),
+        'scenex-secret': os.environ.get('SCENEX_SECRET', ''),
+        'rationale-secret': os.environ.get('RATIONALE_SECRET', ''),
+        'jinachat-secret': os.environ.get('JINACHAT_SECRET', '')
     }
 )
 

@@ -5,15 +5,15 @@ from .clients.JinaChatClient import JinaChatClient
 from .utils import is_url, is_base64, image_to_base64
 
 class JinaAI:
-    def __init__(self, tokens={}):
-        PPToken = f"token {tokens['promptperfect-token']}" if tokens else ''
-        SXToken = f"token {tokens['scenex-token']}" if tokens else ''
-        RAToken = f"token {tokens['rationale-token']}" if tokens else ''
-        CCToken = f"Bearer {tokens['jinachat-token']}" if tokens else ''
-        self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPToken })
-        self.SXClient = SceneXClient(headers = { "x-api-key": SXToken })
-        self.RAClient = RationaleClient(headers = { "x-api-key": RAToken })
-        self.CCClient = JinaChatClient(headers = { "authorization": CCToken })
+    def __init__(self, secrets={}):
+        PPSecret = f"token {secrets['promptperfect-secret']}" if secrets else ''
+        SXSecret = f"token {secrets['scenex-secret']}" if secrets else ''
+        RASecret = f"token {secrets['rationale-secret']}" if secrets else ''
+        CCSecret = f"Bearer {secrets['jinachat-secret']}" if secrets else ''
+        self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPSecret })
+        self.SXClient = SceneXClient(headers = { "x-api-key": SXSecret })
+        self.RAClient = RationaleClient(headers = { "x-api-key": RASecret })
+        self.CCClient = JinaChatClient(headers = { "authorization": CCSecret })
 
     def decide(self, input, options=None):
         if isinstance(input, list):

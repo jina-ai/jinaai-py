@@ -25,16 +25,16 @@ To generate an API secret, you need to authenticate on each respective platform 
 
 ## Example Usage
 
-Import the SDK and instantiate a new client with your authentication tokens:
+Import the SDK and instantiate a new client with your authentication secrets:
 ```python
 from jinaai import JinaAI
 
 jinaai = new JinaAI(
-    tokens = {
-        'promptperfect-token': 'XXXXXX',
-        'scenex-token': 'XXXXXX',
-        'rationale-token': 'XXXXXX',
-        'jinachat-token': 'XXXXXX',
+    secrets = {
+        'promptperfect-secret': 'XXXXXX',
+        'scenex-secret': 'XXXXXX',
+        'rationale-secret': 'XXXXXX',
+        'jinachat-secret': 'XXXXXX',
     }
 )
 ```
