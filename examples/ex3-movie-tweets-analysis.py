@@ -10,7 +10,7 @@ jinaai = JinaAI(
         'promptperfect-token': os.environ.get('PROMPTPERFECT_TOKEN', ''),
         'scenex-token': os.environ.get('SCENEX_TOKEN', ''),
         'rationale-token': os.environ.get('RATIONALE_TOKEN', ''),
-        'chatcat-token': os.environ.get('CHATCAT_TOKEN', '')
+        'jinachat-token': os.environ.get('JINACHAT_TOKEN', '')
     }
 )
 

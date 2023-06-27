@@ -4,7 +4,7 @@ import time
 from .responses.SceneXResponse import SceneXResponse
 from .responses.PromptPerfectResponse import PromptPerfectResponse
 from .responses.RationaleResponse import RationaleResponse
-from .responses.ChatCatResponse import ChatCatResponse
+from .responses.JinaChatResponse import JinaChatResponse
 
 def loadJsonResponse(filename):
     with open("mock/responses/" + filename, "r") as file:
@@ -31,7 +31,7 @@ def post(self, url, data):
         elif url == "/optimizeBatch":
             responseData = PromptPerfectResponse(data)
         elif url == "/completions":
-            responseData = ChatCatResponse(data)
+            responseData = JinaChatResponse(data)
         else:
             responseData = NotImplementedResponse
     if "error" in responseData:

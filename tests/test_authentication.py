@@ -24,7 +24,7 @@ def test_auth_ok():
             'promptperfect-token': 'some-fake-token',
             'scenex-token': 'some-fake-token',
             'rationale-token': 'some-fake-token',
-            'chatcat-token': 'some-fake-token',
+            'jinachat-token': 'some-fake-token',
         }
     )
     with mock_post_method(jinaai.SXClient):

@@ -1,7 +1,7 @@
 from .clients.SceneXClient import SceneXClient
 from .clients.PromptPerfectClient import PromptPerfectClient
 from .clients.RationaleClient import RationaleClient
-from .clients.ChatCatClient import ChatCatClient
+from .clients.JinaChatClient import JinaChatClient
 from .utils import is_url, is_base64, image_to_base64
 
 class JinaAI:
@@ -9,11 +9,11 @@ class JinaAI:
         PPToken = f"token {tokens['promptperfect-token']}" if tokens else ''
         SXToken = f"token {tokens['scenex-token']}" if tokens else ''
         RAToken = f"token {tokens['rationale-token']}" if tokens else ''
-        CCToken = f"Bearer {tokens['chatcat-token']}" if tokens else ''
+        CCToken = f"Bearer {tokens['jinachat-token']}" if tokens else ''
         self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPToken })
         self.SXClient = SceneXClient(headers = { "x-api-key": SXToken })
         self.RAClient = RationaleClient(headers = { "x-api-key": RAToken })
-        self.CCClient = ChatCatClient(headers = { "authorization": CCToken })
+        self.CCClient = JinaChatClient(headers = { "authorization": CCToken })
 
     def decide(self, input, options=None):
         if isinstance(input, list):

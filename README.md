@@ -34,7 +34,7 @@ jinaai = new JinaAI(
         'promptperfect-token': 'XXXXXX',
         'scenex-token': 'XXXXXX',
         'rationale-token': 'XXXXXX',
-        'chatcat-token': 'XXXXXX',
+        'jinachat-token': 'XXXXXX',
     }
 )
 ```
