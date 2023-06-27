@@ -101,6 +101,19 @@ swot = jinaai.decide(
 )
 ```
 
+## Raw Output
+
+You can retrieve the raw output of each APIs by passing `raw: True` in the options:
+
+```python
+descriptions = jinaai.describe(
+    'https://picsum.photos/200',
+    { 'raw': True }
+)
+
+print(descriptions['raw'])
+```
+
 ## API Documentation
 
 <br/>
