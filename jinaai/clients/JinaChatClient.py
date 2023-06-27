@@ -2,7 +2,7 @@ from .HTTPClient import HTTPClient
 from ..utils import is_base64, is_url
 
 
-class ChatCatClient(HTTPClient):
+class JinaChatClient(HTTPClient):
     def __init__(self, headers=None):
         baseUrl = 'https://api-dyzugixgtq-uc.a.run.app/v1/chat'
         defaultHeaders = { 

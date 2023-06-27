@@ -1,6 +1,6 @@
 import time
 
-def ChatCatResponse(input):
+def JinaChatResponse(input):
     return {
         'chatId': input.get('chatId', 'aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
         'inputMessageId': 'aaaaaaaaaaaaaaaaaaaaaaaaaaa',

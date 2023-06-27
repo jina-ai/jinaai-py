@@ -24,17 +24,18 @@ To generate an API secret, you need to authenticate on each respective platform'
 
 ## Example usage
 
-Import the SDK and instantiate a new client with your authentication tokens:
+
+Import the SDK and instantiate a new client with your authentication secrets:
 
 ```python
 from jinaai import JinaAI
 
 jinaai = new JinaAI(
-    tokens = {
-        'promptperfect-token': 'XXXXXX',
-        'scenex-token': 'XXXXXX',
-        'rationale-token': 'XXXXXX',
-        'jinachat-token': 'XXXXXX',
+    secrets = {
+        'promptperfect-secret': 'XXXXXX',
+        'scenex-secret': 'XXXXXX',
+        'rationale-secret': 'XXXXXX',
+        'jinachat-secret': 'XXXXXX',
     }
 )
 ```
@@ -106,9 +107,20 @@ swot = jinaai.decide(
 )
 ```
 
-## API documentation
+## Raw Output
 
-<br/>
+You can retrieve the raw output of each APIs by passing `raw: True` in the options:
+
+```python
+descriptions = jinaai.describe(
+    'https://picsum.photos/200',
+    { 'raw': True }
+)
+
+print(descriptions['raw'])
+```
+
+## API Documentation
 
 ### JinaAi.describe
 
