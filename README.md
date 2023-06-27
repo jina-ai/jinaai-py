@@ -1,20 +1,19 @@
 # JinaAI Python SDK
 
-The JinaAI Python SDK is an efficient instrument that smoothly brings the power of JinaAI's products—SceneXplain, PromptPerfect, Rationale, and JinaChat—into Python applications. Acting as a sturdy interface for JinaAI's APIs, this SDK enables users to effortlessly formulate and fine-tune prompts, thus streamlining application development.
-
+The JinaAI Python SDK is an efficient instrument that smoothly brings the power of JinaAI's products — [SceneXplain](https://scenex.jina.ai), [PromptPerfect](https://promptperfect.jina.ai/), [Rationale](https://rationale.jina.ai/), and [JinaChat](https://chat.jina.ai/) — into Python applications. Acting as a sturdy interface for JinaAI's APIs, this SDK lets you effortlessly formulate and fine-tune prompts, thus streamlining application development.
 
 ## Installing
 
-### Package Manager
+### Package manager
 
 Using pip:
 ```bash
 $ pip install jinaai
 ```
 
-## API Secrets
+## API secrets
 
-To generate an API secret, you need to authenticate on each respective platform and navigate to the API tab:
+To generate an API secret, you need to authenticate on each respective platform's API tab:
 
 - [SceneXplain API](https://scenex.jina.ai/api)
 - [PromptPerfect API](https://promptperfect.jina.ai/api)
@@ -23,9 +22,11 @@ To generate an API secret, you need to authenticate on each respective platform 
 
 > **Note:** Each secret is product-specific and cannot be interchanged. If you're planning to use multiple products, you'll need to generate a separate secret for each.
 
-## Example Usage
+## Example usage
+
 
 Import the SDK and instantiate a new client with your authentication secrets:
+
 ```python
 from jinaai import JinaAI
 
@@ -40,6 +41,7 @@ jinaai = new JinaAI(
 ```
 
 Describe images:
+
 ```python
 descriptions = jinaai.describe(
     'https://picsum.photos/200'
@@ -47,6 +49,7 @@ descriptions = jinaai.describe(
 ```
 
 Evaluate situations:
+
 ```python
 decisions = jinaai.decide(
     'Going to Paris this summer', 
@@ -55,20 +58,23 @@ decisions = jinaai.decide(
 ```
 
 Optimize prompts:
+
 ```python
 prompts = jinaai.optimize(
     'Write an Hello World function in Python'
 )
 ```
 
-Generate complex answer:
+Generate complex answers:
+
 ```python
 output = jinaai.generate(
     'Give me a recipe for a pizza with pineapple'
 )
 ```
 
-Use APIs together
+Use APIs together:
+
 ```python
 situations = [toBase64(img) for img in [
     'factory-1.png',
@@ -80,7 +86,7 @@ situations = [toBase64(img) for img in [
 descriptions = jinaai.describe(situations)
 
 prompt1 = [
-    'Does any of those situations present a danger?',
+    'Do any of those situations present a danger?',
     'Reply with [YES] or [NO] and explain why',
     *['SITUATION:\n' + desc['output'] for i, desc in enumerate(descriptions['results'])]
 ]
@@ -115,8 +121,6 @@ print(descriptions['raw'])
 ```
 
 ## API Documentation
-
-<br/>
 
 ### JinaAi.describe
 
