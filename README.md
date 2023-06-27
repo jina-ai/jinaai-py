@@ -1,6 +1,7 @@
-# jinaai-py
+# JinaAI Python SDK
 
-The JinaAI Python SDK is a powerful tool that seamlessly integrates the capabilities of JinaAI's products, including SceneXplain, PromptPerfect, Rationale and JinaChat into Python applications. This SDK acts as a robust wrapper around JinaAI's APIs, empowering users to create and optimize prompts effectively.
+The JinaAI Python SDK is an efficient instrument that smoothly brings the power of JinaAI's products—SceneXplain, PromptPerfect, Rationale, and JinaChat—into Python applications. Acting as a sturdy interface for JinaAI's APIs, this SDK enables users to effortlessly formulate and fine-tune prompts, thus streamlining application development.
+
 
 ## Installing
 
@@ -10,13 +11,17 @@ Using pip:
 ```bash
 $ pip install jinaai
 ```
-## API Tokens
 
-Authenticate on each platforms and go on the API tab to generate an API token:
-- https://scenex.jina.ai
-- https://promptperfect.jina.ai
-- https://rationale.jina.ai
-- https://chat.jina.ai
+## API Secrets
+
+To generate an API secret, you need to authenticate on each respective platform and navigate to the API tab:
+
+- [SceneXplain API](https://scenex.jina.ai/api)
+- [PromptPerfect API](https://promptperfect.jina.ai/api)
+- [Rationale API](https://rationale.jina.ai/api)
+- [JinaChat API](https://chat.jina.ai/api)
+
+> **Note:** Each secret is product-specific and cannot be interchanged. If you're planning to use multiple products, you'll need to generate a separate secret for each.
 
 ## Example Usage
 
