@@ -30,7 +30,7 @@ Import the SDK and instantiate a new client with your authentication secrets:
 ```python
 from jinaai import JinaAI
 
-jinaai = new JinaAI(
+jinaai = JinaAI(
     secrets = {
         'promptperfect-secret': 'XXXXXX',
         'scenex-secret': 'XXXXXX',
