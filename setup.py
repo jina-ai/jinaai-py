@@ -12,7 +12,13 @@ setup(
     description='Jina AI Python SDK',
     url='https://github.com/jina-ai/jinaai-py.git',
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        'requests',
+        'base64',
+        'mimetypes',
+        'os',
+        're'
+    ],
     long_description=README,
     long_description_content_type='text/markdown', 
 )
