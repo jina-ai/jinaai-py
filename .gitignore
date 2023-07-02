@@ -35,3 +35,5 @@ __pycache__
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.pytest_cache
