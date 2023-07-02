@@ -20,4 +20,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - run: pip install . && pip install pytest
-    - run: cd tests && python -m pytest
+    - run: cd tests && python -m pytest --ignore=real-cases
+    - run: cd tests/real-cases && PROMPTPERFECT_SECRET=$PP SCENEX_SECRET=$SX RATIONALE_SECRET=$RA JINACHAT_SECRET=$CC pytest
+      shell: bash
+      env:
+        PP: ${{ secrets.PROMPTPERFECT_SECRET }}
+        SX: ${{ secrets.SCENEX_SECRET }}
+        RA: ${{ secrets.RATIONALE_SECRET }}
+        CC: ${{ secrets.JINACHAT_SECRET }}
