@@ -1,0 +1,25 @@
+name: PR Check
+
+on:
+  pull_request:
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+        run: pip install .
+    - name: Run tests
+      run: python -m pytest --ignore=real-cases
