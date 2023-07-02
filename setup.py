@@ -14,10 +14,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests',
-        'base64',
-        'mimetypes',
-        'os',
-        're'
     ],
     long_description=README,
     long_description_content_type='text/markdown', 

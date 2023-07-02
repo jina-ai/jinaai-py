@@ -3,7 +3,7 @@ from ..utils import is_base64, is_url
 
 class PromptPerfectClient(HTTPClient):
     def __init__(self, headers=None):
-        baseUrl = 'https://us-central1-prompt-ops.cloudfunctions.net'
+        baseUrl = 'https://api.promptperfect.jina.ai'
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }

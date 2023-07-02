@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10]
+        python-version: [3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v3
@@ -19,5 +19,5 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - run: pip install .
-    - run: python -m pytest --ignore=real-cases
+    - run: pip install . && pip install pytest
+    - run: cd tests && python -m pytest --ignore=real-cases
