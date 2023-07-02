@@ -1,5 +1,11 @@
-from jinaai import JinaAI
+import sys
 import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(current_dir, '../..'))
+sys.path.append(root_dir)
+from jinaai import JinaAI
+
+# THIS TEST USES REAL CREDITS
 
 jinaai = JinaAI(
     secrets = {
@@ -36,18 +42,32 @@ negativeMovieTweets = [
     "I don't recommend this movie at all. It was a total mess and didn't make any sense. #movie #notrecommended"
 ]
 
-def evaluate(tweets):
-    try:
-        # 1. get the general feeling according to the tweets
-        prompt = '\n'.join([
-            'According to those tweets, is the general feeling positive or negative?',
-            'Reply by [POSITIVE] or [NEGATIVE]',
-            *['TWEET:\n' + t for i, t in enumerate(tweets)]
-        ])
-        feeling = jinaai.generate(prompt)
-        print('GENERAL FEELING:', feeling['output'])
-    except Exception as e:
-        print("Error:", str(e))
+feeling = None
 
-evaluate(positiveMovieTweets)
-evaluate(negativeMovieTweets)
+def test_jinachat_get_feeling():
+    global feeling
+    prompt = '\n'.join([
+        'According to those tweets, is the general feeling positive or negative?',
+        'Reply by [POSITIVE] or [NEGATIVE]',
+        *['TWEET:\n' + t for i, t in enumerate(positiveMovieTweets)]
+    ])
+    feeling = jinaai.generate(prompt)
+    print('GENERAL FEELING:', feeling['output'])
+    assert feeling['output']
+    assert len(feeling['output']) > 0
+    assert feeling['chatId']
+    assert 'POSITIVE' in feeling['output']
+
+def test_jinachat_get_feeling():
+    global feeling
+    prompt = '\n'.join([
+        'According to those tweets, is the general feeling positive or negative?',
+        'Reply by [POSITIVE] or [NEGATIVE]',
+        *['TWEET:\n' + t for i, t in enumerate(negativeMovieTweets)]
+    ])
+    feeling = jinaai.generate(prompt)
+    print('GENERAL FEELING:', feeling['output'])
+    assert feeling['output']
+    assert len(feeling['output']) > 0
+    assert feeling['chatId']
+    assert 'NEGATIVE' in feeling['output']

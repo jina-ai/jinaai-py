@@ -1,9 +1,5 @@
-import sys
-import os
-current_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.abspath(os.path.join(current_dir, '..'))
-sys.path.append(root_dir)
 from jinaai import JinaAI
+import os
 
 jinaai = JinaAI(
     secrets = {

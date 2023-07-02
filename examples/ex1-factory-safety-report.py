@@ -1,9 +1,5 @@
-import sys
-import os
-current_dir = os.path.dirname(os.path.abspath(__file__))
-root_dir = os.path.abspath(os.path.join(current_dir, '..'))
-sys.path.append(root_dir)
 from jinaai import JinaAI
+import os
 
 jinaai = JinaAI(
     secrets = {
@@ -15,7 +11,7 @@ jinaai = JinaAI(
 )
 
 def toBase64(img: str) -> str:
-    return jinaai.utils.image_to_base64(f"examples/images/{img}")
+    return jinaai.utils.image_to_base64(f"images/{img}")
 
 situations = [toBase64(img) for img in [
     'factory-1.png',
