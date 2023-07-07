@@ -91,9 +91,12 @@ def test_raw_output():
         assert r1_raw_result[1]['algorithm'] == 'Aqua'
         assert r1_raw_result[0]['text']
         assert r1_raw_result[1]['text']
+        assert not r1_raw_result[0]['answer']
+        assert not r1_raw_result[1]['answer']
         assert r1_raw_result[0]['i18n'].get('en')
         assert r1_raw_result[1]['i18n'].get('en')
         r2 = jinaai.describe(input, {
+            'question': 'How many people are on this photo?',
             'features': ['high_quality'],
             'algorithm': 'Dune',
             'languages': ['fr'],
@@ -104,14 +107,18 @@ def test_raw_output():
         assert len(r2_raw_result) == 2
         assert r2_raw_result[0]['image'] == input[0]
         assert r2_raw_result[1]['image'] == input[1]
-        assert len(r2_raw_result[0]['features']) == 1
-        assert len(r2_raw_result[1]['features']) == 1
+        assert len(r2_raw_result[0]['features']) == 2
+        assert len(r2_raw_result[1]['features']) == 2
         assert r2_raw_result[0]['features'][0] == 'high_quality'
+        assert r2_raw_result[0]['features'][1] == 'question_answer'
         assert r2_raw_result[1]['features'][0] == 'high_quality'
+        assert r2_raw_result[1]['features'][1] == 'question_answer'
         assert r2_raw_result[0]['algorithm'] == 'Dune'
         assert r2_raw_result[1]['algorithm'] == 'Dune'
         assert r2_raw_result[0]['text']
         assert r2_raw_result[1]['text']
+        assert r2_raw_result[0]['answer']
+        assert r2_raw_result[1]['answer']
         assert not r2_raw_result[0]['i18n'].get('en')
         assert not r2_raw_result[1]['i18n'].get('en')
         assert r2_raw_result[0]['i18n'].get('fr')

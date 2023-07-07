@@ -1,5 +1,11 @@
 from .HTTPClient import HTTPClient
 
+def autoFillFeatures(options=None):
+    features = options.get('features', []) if options else []
+    if options and 'question' in options and 'question_answer' not in features:
+        features.append('question_answer')
+    return features
+
 class SceneXClient(HTTPClient):
     def __init__(self, headers=None):
         baseUrl = 'https://us-central1-causal-diffusion.cloudfunctions.net'
@@ -14,7 +20,7 @@ class SceneXClient(HTTPClient):
             'data': [
                 {
                     'image': i,
-                    'features': [],
+                    'features': autoFillFeatures(options),
                     **(options or {})
                 }
                 for i in input
@@ -26,7 +32,7 @@ class SceneXClient(HTTPClient):
             'data': [
                 {
                     'image': input,
-                    'features': [],
+                    'features': autoFillFeatures(options),
                     **(options or {})
                 }
             ]
@@ -38,8 +44,8 @@ class SceneXClient(HTTPClient):
         return {
             'results': [
                 {
-                    'output': r.get('text'),
-                    'i18n': r.get('i18n')
+                    'output': r['answer'] if 'answer' in r and r['answer'] is not None else r['text'],
+                    'i18n': r['i18n']
                 }
                 for r in output['result']
             ]
