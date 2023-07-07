@@ -140,7 +140,7 @@ output = JinaAI.describe(input, options)
 >|----------------------------------------|-------------------|----------
 >| options                                | dict              | 
 >| options['algorithm']                   | None / str        | Aqua / Bolt / Comet / Dune / Ember / Flash
->| options['features']                    | None / str array  | high_quality, question_answer
+>| options['features']                    | None / str array  | high_quality, question_answer, tts, opt-out
 >| options['languages']                   | None / str array  | en, cn, de, fr, it...
 >| options['question']                    | None / str        | Question related to the picture(s)
 >| options['style']                       | None / str        | default / concise / prompt

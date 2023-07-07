@@ -6,7 +6,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name='jinaai',
-    version='0.2.1',
+    version='0.2.2',
     author='Jina AI',
     author_email='guillaume.roncari@jina.ai',
     description='Jina AI Python SDK',

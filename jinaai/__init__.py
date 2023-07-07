@@ -6,10 +6,10 @@ from .utils import is_url, is_base64, image_to_base64
 
 class JinaAI:
     def __init__(self, secrets={}):
-        PPSecret = f"token {secrets['promptperfect-secret']}" if secrets else ''
-        SXSecret = f"token {secrets['scenex-secret']}" if secrets else ''
-        RASecret = f"token {secrets['rationale-secret']}" if secrets else ''
-        CCSecret = f"Bearer {secrets['jinachat-secret']}" if secrets else ''
+        PPSecret = f"token {secrets['promptperfect-secret']}" if secrets and 'promptperfect-secret' in secrets else ''
+        SXSecret = f"token {secrets['scenex-secret']}" if secrets and 'scenex-secret' in secrets else ''
+        RASecret = f"token {secrets['rationale-secret']}" if secrets and 'rationale-secret' in secrets else ''
+        CCSecret = f"Bearer {secrets['jinachat-secret']}" if secrets and 'jinachat-secret' in secrets else ''
         self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPSecret })
         self.SXClient = SceneXClient(headers = { "x-api-key": SXSecret })
         self.RAClient = RationaleClient(headers = { "x-api-key": RASecret })
