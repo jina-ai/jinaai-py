@@ -5,6 +5,7 @@ from .responses.SceneXResponse import SceneXResponse
 from .responses.PromptPerfectResponse import PromptPerfectResponse
 from .responses.RationaleResponse import RationaleResponse
 from .responses.JinaChatResponse import JinaChatResponse
+from .responses.BestBannerResponse import BestBannerResponse
 
 def loadJsonResponse(filename):
     with open("mock/responses/" + filename, "r") as file:
@@ -32,6 +33,8 @@ def post(self, url, data):
             responseData = PromptPerfectResponse(data)
         elif url == "/completions":
             responseData = JinaChatResponse(data)
+        elif url == "/generate":
+            responseData = BestBannerResponse(data)
         else:
             responseData = NotImplementedResponse
     if "error" in responseData:
