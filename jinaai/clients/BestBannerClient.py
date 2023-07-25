@@ -1,14 +1,8 @@
 from .HTTPClient import HTTPClient
 
-def autoFillFeatures(options=None):
-    features = options.get('features', []) if options else []
-    if options and 'question' in options and 'question_answer' not in features:
-        features.append('question_answer')
-    return features
-
-class SceneXClient(HTTPClient):
+class BestBannerClient(HTTPClient):
     def __init__(self, headers=None):
-        baseUrl = 'https://api.scenex.jina.ai/v1'
+        baseUrl = 'https://api.bestbanner.jina.ai/v1'
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }
@@ -19,8 +13,7 @@ class SceneXClient(HTTPClient):
         return {
             'data': [
                 {
-                    'image': i,
-                    'features': autoFillFeatures(options),
+                    'text': i,
                     **(options or {})
                 }
                 for i in input
@@ -31,28 +24,28 @@ class SceneXClient(HTTPClient):
         return {
             'data': [
                 {
-                    'image': input,
-                    'features': autoFillFeatures(options),
+                    'text': input,
                     **(options or {})
                 }
             ]
         }
 
     def to_simplified_output(self, output):
-        if not output.get('result') or any(x.get('text') and x.get('text') != '' for x in output['result']) is False:
+        if not output.get('result') or any(x.get('banners') and len(x['banners']) != 0 for x in output['result']) is False:
             raise Exception('Remote API Error, bad output: {}'.format(json.dumps(output)))
         return {
             'results': [
                 {
-                    'output': r['answer'] if 'answer' in r and r['answer'] is not None else r['text'],
-                    'i18n': r['i18n']
+                    'output': [
+                        b['url'] for b in r['banners']
+                    ]
                 }
                 for r in output['result']
             ]
         }
 
-    def describe(self, data, options = None):
-        raw_output = self.post('/describe', data)
+    def imagine(self, data, options = None):
+        raw_output = self.post('/generate', data)
         simplified_output = self.to_simplified_output(raw_output)
         if options and 'raw' in options:
             simplified_output['raw'] = raw_output

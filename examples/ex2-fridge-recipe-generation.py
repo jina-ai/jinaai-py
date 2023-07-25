@@ -38,6 +38,9 @@ def generate():
             { 'analysis': 'swot' }
         )
         print('SWOT:\n', swot['results'][0]['swot'])
+        # 5. get a banner for the recipe
+        banners = jinaai.imagine(recipe['output'])
+        print('BANNERS:\n', banners['results'])
     except Exception as e:
         print("Error:", str(e))
 

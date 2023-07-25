@@ -46,6 +46,9 @@ def evaluate():
             { 'analysis': 'swot' }
         )
         print('SWOT:\n', swot['results'][0]['swot'])
+        # 5. get a banner for the report
+        banners = jinaai.imagine(descriptions['results'][0]['output'])
+        print('BANNERS:\n', banners['results'])
     except Exception as e:
         print("Error:", str(e))
 

@@ -1,6 +1,6 @@
 # JinaAI Python SDK
 
-The JinaAI Python SDK is an efficient instrument that smoothly brings the power of JinaAI's products — [SceneXplain](https://scenex.jina.ai), [PromptPerfect](https://promptperfect.jina.ai/), [Rationale](https://rationale.jina.ai/), and [JinaChat](https://chat.jina.ai/) — into Python applications. Acting as a sturdy interface for JinaAI's APIs, this SDK lets you effortlessly formulate and fine-tune prompts, thus streamlining application development.
+The JinaAI Python SDK is an efficient instrument that smoothly brings the power of JinaAI's products — [SceneXplain](https://scenex.jina.ai), [PromptPerfect](https://promptperfect.jina.ai/), [Rationale](https://rationale.jina.ai/), [BestBanner](https://bestbanner.jina.ai/), and [JinaChat](https://chat.jina.ai/) — into Python applications. Acting as a sturdy interface for JinaAI's APIs, this SDK lets you effortlessly formulate and fine-tune prompts, thus streamlining application development.
 
 ## Installing
 
@@ -19,6 +19,7 @@ To generate an API secret, you need to authenticate on each respective platform'
 - [PromptPerfect API](https://promptperfect.jina.ai/api)
 - [Rationale API](https://rationale.jina.ai/api)
 - [JinaChat API](https://chat.jina.ai/api)
+- [BestBanner API](https://bestbanner.jina.ai/api)
 
 > **Note:** Each secret is product-specific and cannot be interchanged. If you're planning to use multiple products, you'll need to generate a separate secret for each.
 
@@ -36,6 +37,7 @@ jinaai = JinaAI(
         'scenex-secret': 'XXXXXX',
         'rationale-secret': 'XXXXXX',
         'jinachat-secret': 'XXXXXX',
+        'bestbanner-secret': 'XXXXXX',
     }
 )
 ```
@@ -73,6 +75,14 @@ output = jinaai.generate(
 )
 ```
 
+Create images from text:
+
+```python
+output = jinaai.imagine(
+    'A controversial fusion of sweet pineapple and savory pizza.'
+)
+```
+
 Use APIs together:
 
 ```python
@@ -105,6 +115,10 @@ swot = jinaai.decide(
     recommendation['output'],
     { 'analysis': 'swot' }
 )
+
+banners = jinaai.imagine(
+    *[desc['output'] for i, desc in enumerate(descriptions['results'])]
+)
 ```
 
 ## Raw Output
@@ -136,7 +150,7 @@ output = JinaAI.describe(input, options)
 
 - Options
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| options                                | dict              | 
 >| options['algorithm']                   | None / str        | Aqua / Bolt / Comet / Dune / Ember / Flash
@@ -147,7 +161,7 @@ output = JinaAI.describe(input, options)
 
 - Output
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| output                                 | dict              | 
 >| output['results']                      | dict array        | 
@@ -165,13 +179,13 @@ output = JinaAI.optimize(input, options)
 
 - Input
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| input                                  | str / str array   | Image URL or Base64 / prompt to optimize
 
 - Options
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| options                                | dict              | 
 >| options['targetModel']                 | None / str        | chatgpt / gpt-4 / stablelm-tuned-alpha-7b / claude / cogenerate / text-davinci-003 / dalle / sd / midjourney / kandinsky / lexica
@@ -190,7 +204,7 @@ output = JinaAI.optimize(input, options)
 
 - Output
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| output                                 | dict              | 
 >| output['results']                      | dict array        | 
@@ -206,13 +220,13 @@ output = JinaAI.decide(input, options)
 
 - Input
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| input                                  | str / str array   | Decision to evaluate
 
 - Options
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| options                                | dict              | 
 >| options['analysis']                    | None / str        | proscons / swot / multichoice / outcomes
@@ -221,7 +235,7 @@ output = JinaAI.decide(input, options)
 
 - Output
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| output                                 | dict              | 
 >| output['results']                      | dict array        | 
@@ -262,13 +276,13 @@ output = JinaAI.generate(input, options)
 
 - Input
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE                   | VALUE 
 >|----------------------------------------|------------------------|----------
 >| input                                  | str / str array        | Image URL or Base64 / prompt
 
 - Options
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE                   | VALUE 
 >|----------------------------------------|------------------------|----------
 >| options                                | dict                   | 
 >| options['role']                        | None / str             | user / assistant
@@ -286,11 +300,37 @@ output = JinaAI.generate(input, options)
 
 - Output
 
->| VARIABLE                              | TYPE              | VALUE 
+>| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| output                                 | dict              | 
 >| output['output']                       | str               | The generated answer
 >| output['chatId']                       | str               | The chatId to continue the conversation
+
+<br/>
+
+### JinaAi.imagine
+
+```python
+output = JinaAI.imagine(input, options)
+```
+
+- Input
+
+>| VARIABLE                               | TYPE                   | VALUE 
+>|----------------------------------------|------------------------|----------
+>| input                                  | str / str array        | Prompt
+
+- Options
+
+>No options available
+
+- Output
+
+>| VARIABLE                               | TYPE              | VALUE 
+>|----------------------------------------|-------------------|----------
+>| output                                 | dict              | 
+>| output['results']                      | dict array        |
+>| results[0]['output']                   | array             | array of 4 image urls
 
 <br/>
 
