@@ -6,7 +6,8 @@ jinaai = JinaAI(
         'promptperfect-secret': os.environ.get('PROMPTPERFECT_SECRET', ''),
         'scenex-secret': os.environ.get('SCENEX_SECRET', ''),
         'rationale-secret': os.environ.get('RATIONALE_SECRET', ''),
-        'jinachat-secret': os.environ.get('JINACHAT_SECRET', '')
+        'jinachat-secret': os.environ.get('JINACHAT_SECRET', ''),
+        'bestbanner-secret': os.environ.get('BESTBANNER_SECRET', '')
     }
 )
 
@@ -14,7 +15,6 @@ def toBase64(img: str) -> str:
     return jinaai.utils.image_to_base64(f"images/{img}")
 
 situations = [toBase64(img) for img in [
-    'factory-1.png',
     'factory-2.png',
     'factory-3.png',
     'factory-4.png',
