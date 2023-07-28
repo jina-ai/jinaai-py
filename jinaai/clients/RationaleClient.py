@@ -4,13 +4,13 @@ from ..utils import is_base64, is_url
 MAXLEN = 300
 
 class RationaleClient(HTTPClient):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, options=None):
         baseUrl = 'https://us-central1-rationale-ai.cloudfunctions.net'
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }
         mergedHeaders = defaultHeaders.update(headers)
-        super().__init__(baseUrl=baseUrl, headers=defaultHeaders)
+        super().__init__(baseUrl=baseUrl, headers=defaultHeaders, options=options)
 
     def from_array(self, input, options=None):
         return {

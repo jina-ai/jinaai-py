@@ -1,13 +1,13 @@
 from .HTTPClient import HTTPClient
 
 class BestBannerClient(HTTPClient):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, options=None):
         baseUrl = 'https://api.bestbanner.jina.ai/v1'
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }
         mergedHeaders = defaultHeaders.update(headers)
-        super().__init__(baseUrl=baseUrl, headers=defaultHeaders)
+        super().__init__(baseUrl=baseUrl, headers=defaultHeaders, options=options)
 
     def from_array(self, input, options=None):
         return {

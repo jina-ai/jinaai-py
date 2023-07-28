@@ -1,9 +1,10 @@
 import requests
 
 class HTTPClient:
-    def __init__(self, baseUrl, headers=None):
+    def __init__(self, baseUrl, headers=None, options=None):
         self.baseUrl = baseUrl
         self.headers = headers if headers else {}
+        self.options = options if options else {}
 
     def setHeaders(self, headers):
         self.headers = headers
@@ -17,7 +18,7 @@ class HTTPClient:
         return responseData
 
     def post(self, url, data):
-        response = requests.post(self.baseUrl + url, json=data, headers=self.headers)
+        response = requests.post(self.baseUrl + url, json=data, headers=self.headers, **self.options)
         responseData = response.json()
         if "error" in responseData:
             raise Exception(responseData["error"])
