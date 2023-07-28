@@ -52,3 +52,6 @@ class JinaChatClient(HTTPClient):
         if options and 'raw' in options:
             simplified_output['raw'] = raw_output
         return simplified_output
+
+    def stream(self, data, options = None):
+        return self.post('/completions', data, False)

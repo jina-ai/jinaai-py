@@ -17,12 +17,15 @@ class HTTPClient:
         responseData = response.json()
         return responseData
 
-    def post(self, url, data):
+    def post(self, url, data, toJson=True):
         response = requests.post(self.baseUrl + url, json=data, headers=self.headers, **self.options)
-        responseData = response.json()
-        if "error" in responseData:
-            raise Exception(responseData["error"])
-        return responseData
+        if toJson == False:
+            return response
+        else:
+            responseData = response.json()
+            if "error" in responseData:
+                raise Exception(responseData["error"])
+            return responseData
 
     def put(self, url, data):
         response = requests.put(self.baseUrl + url, headers=self.headers)

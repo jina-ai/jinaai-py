@@ -52,7 +52,10 @@ class JinaAI:
             data = self.CCClient.from_string(input, options)
         else:
             data = input
-        return self.CCClient.generate(data, options)
+        if options is not None and options.get('stream', False):
+            return self.CCClient.stream(data, options)
+        else:
+            return self.CCClient.generate(data, options)
 
     def imagine(self, input, options=None):
         if isinstance(input, list):
