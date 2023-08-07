@@ -297,6 +297,7 @@ output = JinaAI.generate(input, options)
 >| options['frequency_penalty']           | None / number          | Number between -2.0 and 2.0, Default: 0
 >| options['logit_bias']                  | None / dict            | The likelihood for a token to appear in the completion
 >| ...logit_bias['tokenId']               | number                 | Bias value from -100 to 100
+>| options['image']                       | str                    | The attached image of the message. The image can be either a URL or a base64-encoded string
 
 - Output
 

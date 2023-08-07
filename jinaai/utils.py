@@ -2,6 +2,7 @@ import base64
 import mimetypes
 import os
 import re
+from typing import List, Dict, Optional
 
 def is_url(string):
     url_pattern = r'^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[:?\d]*)\S*$'
@@ -25,4 +26,9 @@ def image_to_base64(file_path):
 def get_mime_type(file_path):
     mime_type, _ = mimetypes.guess_type(file_path)
     return mime_type or 'application/octet-stream'
+
+def omit(d: Dict, key: str) -> Dict:
+    if d is None:
+        return {}
+    return {k: v for k, v in d.items() if k != key}
 

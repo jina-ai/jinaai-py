@@ -1,5 +1,5 @@
 from .HTTPClient import HTTPClient
-from ..utils import is_base64, is_url
+from ..utils import is_base64, is_url, omit
 
 
 class JinaChatClient(HTTPClient):
@@ -16,13 +16,13 @@ class JinaChatClient(HTTPClient):
             'messages': [
                 {
                     'content': i,
-                    **(((is_url(i) or is_base64(i)) and { 'image': i }) or {}),
+                    **((options and options.get("image") and (is_url(options['image']) or is_base64(options['image'])) and { 'image': options['image'] }) or {}),
                     'role': 'user',
-                    **(options or {})
+                    **(omit(options, 'image'))
                 }
                 for i in input
             ],
-            **(options or {})
+            **(omit(options, 'image'))
         }
 
     def from_string(self, input, options=None):
@@ -30,12 +30,12 @@ class JinaChatClient(HTTPClient):
             'messages': [
                 {
                     'content': input,
-                    **(((is_url(input) or is_base64(input)) and { 'image': input }) or {}),
+                    **((options and options.get("image") and (is_url(options['image']) or is_base64(options['image'])) and { 'image': options['image'] }) or {}),
                     'role': 'user',
-                    **(options or {})
+                    **(omit(options, 'image'))
                 }
             ],
-            **(options or {})
+            **(omit(options, 'image'))
         }
 
     def to_simplified_output(self, output):

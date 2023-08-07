@@ -43,6 +43,15 @@ def test_text_input():
         assert len(r2['output']) > 0
         assert r2['chatId'] == '1234567890'
 
+def test_text_with_img_input():
+    with mock_post_method(jinaai.CCClient):
+        input_data = 'What could I do with this?'
+        url = 'https://picsum.photos/200'
+        r1 = jinaai.generate(input_data, { 'image': url })
+        assert r1['output']
+        assert len(r1['output']) > 0
+        assert r1['chatId'] == 'aaaaaaaaaaaaaaaaaaaaaaaaaaa'
+
 def test_text_arr_input():
     with mock_post_method(jinaai.CCClient):
         input_data = [
