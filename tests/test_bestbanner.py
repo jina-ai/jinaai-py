@@ -27,7 +27,6 @@ def test_default_input():
         r1 = jinaai.imagine({ "data": [
             {
                 'text': i,
-                'bannerCount': 4
             }
             for i in input
         ]})
@@ -46,12 +45,12 @@ def test_text_input():
         assert len(results) == 1
         assert len(results[0]['output']) == 4
         r2 = jinaai.imagine(input, {
-            'bannerCount': 8,
+            'style': 'flat',
         })
         results = r2['results']
         assert results
         assert len(results) == 1
-        assert len(results[0]['output']) == 8
+        assert len(results[0]['output']) == 4
 
 def test_text_arr_input():
     with mock_post_method(jinaai.BBClient):
@@ -66,13 +65,13 @@ def test_text_arr_input():
         assert len(results[0]['output']) == 4
         assert len(results[1]['output']) == 4
         r2 = jinaai.imagine(input, {
-            'bannerCount': 8,
+            'style': 'minimalist',
         })
         results = r2['results']
         assert results
         assert len(results) == 2
-        assert len(results[0]['output']) == 8
-        assert len(results[1]['output']) == 8
+        assert len(results[0]['output']) == 4
+        assert len(results[1]['output']) == 4
 
 def test_raw_output():
     with mock_post_method(jinaai.BBClient):
@@ -88,10 +87,8 @@ def test_raw_output():
         assert r1_raw_result[1]['text'] == input[1]
         assert len(r1_raw_result[0]['banners']) == 4
         assert len(r1_raw_result[1]['banners']) == 4
-        assert len(r1_raw_result[0]['algorithms']) == 4
-        assert len(r1_raw_result[1]['algorithms']) == 4
         r2 = jinaai.imagine(input, {
-            'bannerCount': 8,
+            'style': 'photographic',
             'raw': True
         })
         r2_raw_result = r2['raw']['result']
@@ -99,7 +96,5 @@ def test_raw_output():
         assert len(r2_raw_result) == 2
         assert r2_raw_result[0]['text'] == input[0]
         assert r2_raw_result[1]['text'] == input[1]
-        assert len(r2_raw_result[0]['banners']) == 8
-        assert len(r2_raw_result[1]['banners']) == 8
-        assert len(r2_raw_result[0]['algorithms']) == 8
-        assert len(r2_raw_result[1]['algorithms']) == 8
+        assert len(r2_raw_result[0]['banners']) == 4
+        assert len(r2_raw_result[1]['banners']) == 4

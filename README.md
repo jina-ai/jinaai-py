@@ -323,7 +323,10 @@ output = JinaAI.imagine(input, options)
 
 - Options
 
->No options available
+>| VARIABLE                               | TYPE                   | VALUE 
+>|----------------------------------------|------------------------|----------
+>| options                                | dict                   | 
+>| options['style']                       | None / str             | default / photographic / minimalist / flat
 
 - Output
 

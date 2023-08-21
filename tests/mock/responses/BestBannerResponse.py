@@ -8,7 +8,9 @@ def BestBannerResponse(input):
                 'userId': 'zoyqq4zkwdZLiBgH0eyhx4fcN9b2',
                 'text': e['text'],
                 'plainText': None,
-                'algorithms': ['PICO'] * (4 if not e.get('bannerCount') or e['bannerCount'] < 4 else e['bannerCount']),
+                'title': 'Skyrocket Your Productivity: Unlock Success in Fast-Paced Times\n',
+                'style': None,
+                'description': "Master the art of time management to thrive in today's rapid world.",
                 'resolution': {
                     'width': 1024,
                     'height': 1024
@@ -16,11 +18,12 @@ def BestBannerResponse(input):
                 'banners': [{
                     'id': 'aaaaaaaaaaaaaaaaaaaaaaaaaaa' + str(i),
                     'url': 'https://picsum.photos/1024'
-                } for _ in range(4 if not e.get('bannerCount') or e['bannerCount'] < 4 else e['bannerCount'])],
+                } for _ in range(4)],
                 'createdAt': {
                     'nanoseconds': 821654000,
                     'seconds': 1688627912
                 },
+                'status': 'SUCCESS',
                 'metaData': {}
             }
             for i, e in enumerate(input["data"])
