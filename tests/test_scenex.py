@@ -55,6 +55,31 @@ def test_image_url_input():
         assert results[0]['i18n'].get('fr')
         assert results[0]['i18n'].get('de')
 
+def test_image_url_input_shortened_answer():
+    with mock_post_method(jinaai.SXClient):
+        input = 'https://picsum.photos/200'
+        r1 = jinaai.describe(input, { 'output_length': 50 })
+        results = r1['results']
+        assert results
+        assert len(results) == 1
+        assert len(results[0]['output']) > 0
+        assert len(results[0]['output']) > 50
+        assert results[0]['i18n'].get('en')
+        assert len(results[0]['i18n']['en']) == 50
+        r2 = jinaai.describe(input, {
+            'output_length': 50,
+            'languages': ['fr', 'de']
+        })
+        results = r2['results']
+        assert results
+        assert len(results) == 1
+        assert len(results[0]['output']) > 0
+        assert len(results[0]['output']) > 50
+        assert results[0]['i18n'].get('fr')
+        assert len(results[0]['i18n']['fr']) == 50
+        assert results[0]['i18n'].get('de')
+        assert len(results[0]['i18n']['de']) == 50
+
 def test_image_url_arr_input():
     with mock_post_method(jinaai.SXClient):
         input = ['https://picsum.photos/200', 'https://picsum.photos/300']

@@ -158,6 +158,7 @@ output = JinaAI.describe(input, options)
 >| options['languages']                   | None / str array  | en, cn, de, fr, it...
 >| options['question']                    | None / str        | Question related to the picture(s)
 >| options['style']                       | None / str        | default / concise / prompt
+>| options['output_length']               | None / number     |
 
 - Output
 
