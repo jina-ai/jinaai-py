@@ -45,7 +45,10 @@ class SceneXClient(HTTPClient):
             'results': [
                 {
                     'output': r['answer'] if 'answer' in r and r['answer'] is not None else r['text'],
-                    'i18n': r['i18n']
+                    'i18n': r['i18n'],
+                    "tts": r["tts"] if "tts" in r else None,
+                    "ssml": r["dialog"]["ssml"] if r.get("dialog") and "ssml" in r["dialog"] else None
+
                 }
                 for r in output['result']
             ]

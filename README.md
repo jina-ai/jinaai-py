@@ -153,7 +153,7 @@ output = JinaAI.describe(input, options)
 >| VARIABLE                               | TYPE              | VALUE 
 >|----------------------------------------|-------------------|----------
 >| options                                | dict              | 
->| options['algorithm']                   | None / str        | Aqua / Bolt / Comet / Dune / Ember / Flash
+>| options['algorithm']                   | None / str        | Aqua / Bolt / Comet / Dune / Ember / Flash / Glide / Hearth
 >| options['features']                    | None / str array  | high_quality, question_answer, tts, opt-out
 >| options['languages']                   | None / str array  | en, cn, de, fr, it...
 >| options['question']                    | None / str        | Question related to the picture(s)
@@ -169,6 +169,15 @@ output = JinaAI.describe(input, options)
 >| results[0]['output']                   | str               | The picture description
 >| results[0]['i18n']                     | dict              | Contains one key for each item in languages
 >| ...i18n['cn']                          | str               | The translated picture description
+>| ...i18n['cn']                          | dict array        | Only for Hearth algorithm
+>| ...i18n['cn'][0]                       | dict              | 
+>| ...i18n['cn'][0]['message']            | str               | 
+>| ...i18n['cn'][0]['isNarrator']         | boolean           | 
+>| ...i18n['cn'][0]['name']               | str               | 
+>| results[0]['tts']                      | dict              | Only for Hearth algorithm
+>| ...tts['cn']                           | str               | Contains the url to the tts file
+>| results[0]['ssml']                     | dict              | Only for Hearth algorithm
+>| ...ssml['cn']                          | str               | Contains the url to the ssml file
 
 <br/>
 
