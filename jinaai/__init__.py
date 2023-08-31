@@ -3,20 +3,25 @@ from .clients.PromptPerfectClient import PromptPerfectClient
 from .clients.RationaleClient import RationaleClient
 from .clients.JinaChatClient import JinaChatClient
 from .clients.BestBannerClient import BestBannerClient
-from .utils import is_url, is_base64, image_to_base64
+from .utils import is_url, is_base64, image_to_base64, filter_args
 
 class JinaAI:
-    def __init__(self, secrets={}):
+    def __init__(self, secrets={}, baseUrls={}):
         PPSecret = f"token {secrets['promptperfect-secret']}" if secrets and 'promptperfect-secret' in secrets else ''
         SXSecret = f"token {secrets['scenex-secret']}" if secrets and 'scenex-secret' in secrets else ''
         RASecret = f"token {secrets['rationale-secret']}" if secrets and 'rationale-secret' in secrets else ''
         CCSecret = f"Bearer {secrets['jinachat-secret']}" if secrets and 'jinachat-secret' in secrets else ''
         BBSecret = f"token {secrets['bestbanner-secret']}" if secrets and 'bestbanner-secret' in secrets else ''
-        self.PPClient = PromptPerfectClient(headers = { "x-api-key": PPSecret })
-        self.SXClient = SceneXClient(headers = { "x-api-key": SXSecret })
-        self.RAClient = RationaleClient(headers = { "x-api-key": RASecret })
-        self.CCClient = JinaChatClient(headers = { "authorization": CCSecret })
-        self.BBClient = BestBannerClient(headers = { "x-api-key": BBSecret })
+        ppCustomUrl = baseUrls['promptperfect'] if baseUrls and 'promptperfect' in baseUrls else None
+        sxCustomUrl = baseUrls['scenex'] if baseUrls and 'scenex' in baseUrls else None
+        raCustomUrl = baseUrls['rationale'] if baseUrls and 'rationale' in baseUrls else None
+        ccCustomUrl = baseUrls['jinachat'] if baseUrls and 'jinachat' in baseUrls else None
+        bbCustomUrl = baseUrls['bestbanner'] if baseUrls and 'bestbanner' in baseUrls else None
+        self.PPClient = PromptPerfectClient(**filter_args(headers = { "x-api-key": PPSecret }, baseUrl=ppCustomUrl))
+        self.SXClient = SceneXClient(**filter_args(headers = { "x-api-key": SXSecret }, baseUrl=sxCustomUrl))
+        self.RAClient = RationaleClient(**filter_args(headers = { "x-api-key": RASecret }, baseUrl=raCustomUrl))
+        self.CCClient = JinaChatClient(**filter_args(headers = { "authorization": CCSecret }, baseUrl=ccCustomUrl))
+        self.BBClient = BestBannerClient(**filter_args(headers = { "x-api-key": BBSecret }, baseUrl=bbCustomUrl))
 
     def decide(self, input, options=None):
         if isinstance(input, list):

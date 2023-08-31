@@ -7,8 +7,7 @@ def autoFillFeatures(options=None):
     return features
 
 class SceneXClient(HTTPClient):
-    def __init__(self, headers=None, options=None):
-        baseUrl = 'https://api.scenex.jina.ai/v1'
+    def __init__(self, headers=None, options=None, baseUrl='https://api.scenex.jina.ai/v1'):
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }

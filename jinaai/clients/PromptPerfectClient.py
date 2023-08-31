@@ -2,8 +2,7 @@ from .HTTPClient import HTTPClient
 from ..utils import is_base64, is_url
 
 class PromptPerfectClient(HTTPClient):
-    def __init__(self, headers=None, options=None):
-        baseUrl = 'https://api.promptperfect.jina.ai'
+    def __init__(self, headers=None, options=None, baseUrl='https://api.promptperfect.jina.ai'):
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }

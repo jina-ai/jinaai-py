@@ -32,3 +32,6 @@ def omit(d: Dict, key: str) -> Dict:
         return {}
     return {k: v for k, v in d.items() if k != key}
 
+def filter_args(**kwargs):
+    return {k: v for k, v in kwargs.items() if v is not None}
+

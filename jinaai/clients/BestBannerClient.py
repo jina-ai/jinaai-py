@@ -1,8 +1,7 @@
 from .HTTPClient import HTTPClient
 
 class BestBannerClient(HTTPClient):
-    def __init__(self, headers=None, options=None):
-        baseUrl = 'https://api.bestbanner.jina.ai/v1'
+    def __init__(self, headers=None, options=None, baseUrl='https://api.bestbanner.jina.ai/v1'):
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }

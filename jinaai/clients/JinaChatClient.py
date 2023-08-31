@@ -3,8 +3,7 @@ from ..utils import is_base64, is_url, omit
 
 
 class JinaChatClient(HTTPClient):
-    def __init__(self, headers=None, options=None):
-        baseUrl = 'https://api.chat.jina.ai/v1/chat'
+    def __init__(self, headers=None, options=None, baseUrl='https://api.chat.jina.ai/v1/chat'):
         defaultHeaders = { 
             'Content-Type': 'application/json',
         }
