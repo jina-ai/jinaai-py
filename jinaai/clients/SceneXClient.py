@@ -1,4 +1,5 @@
 from .HTTPClient import HTTPClient
+import time
 
 def autoFillFeatures(options=None):
     features = options.get('features', []) if options else []
@@ -19,6 +20,7 @@ class SceneXClient(HTTPClient):
             'data': [
                 {
                     'image': i,
+                    **({"video": i} if options and options.get("algorithm") == "Inception" else {}),
                     'features': autoFillFeatures(options),
                     **(options or {})
                 }
@@ -31,6 +33,7 @@ class SceneXClient(HTTPClient):
             'data': [
                 {
                     'image': input,
+                    **({"video": input} if options and options.get("algorithm") == "Inception" else {}),
                     'features': autoFillFeatures(options),
                     **(options or {})
                 }
@@ -38,13 +41,13 @@ class SceneXClient(HTTPClient):
         }
 
     def to_simplified_output(self, output):
-        if not output.get('result') or any(x.get('text') and x.get('text') != '' for x in output['result']) is False:
+        if not output.get('result') or any(x.get('image') or x.get('video') for x in output['result']) is False:
             raise Exception('Remote API Error, bad output: {}'.format(json.dumps(output)))
         return {
             'results': [
                 {
-                    'output': r['answer'] if 'answer' in r and r['answer'] is not None else r['text'],
-                    'i18n': r['i18n'],
+                    'output': r['answer'] if 'answer' in r and r['answer'] is not None else (r['text'] if 'text' in r else 'Processing...'),
+                    'i18n': r['i18n'] if "i18n" in r else None,
                     "tts": r["tts"] if "tts" in r else None,
                     "ssml": r["dialog"]["ssml"] if r.get("dialog") and "ssml" in r["dialog"] else None
 
@@ -53,8 +56,23 @@ class SceneXClient(HTTPClient):
             ]
         }
 
+    def describe_video(self, output, options = None):
+        for i, scene in enumerate(output["result"]):
+            raw_output = None
+            is_done = False
+            while is_done is False:
+                raw_output = self.get(f"/scene/{scene['id']}")
+                if raw_output["result"]["data"]["status"] != "pending":
+                    is_done = True
+                time.sleep(10)
+            if raw_output:
+                output["result"][i] = raw_output["result"]["data"]
+        return output
+
     def describe(self, data, options = None):
         raw_output = self.post('/describe', data)
+        if options and 'algorithm' in options and options['algorithm'] == 'Inception':
+            raw_output = self.describe_video(raw_output, options)
         simplified_output = self.to_simplified_output(raw_output)
         if options and 'raw' in options:
             simplified_output['raw'] = raw_output
