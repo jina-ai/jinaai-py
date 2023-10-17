@@ -1,6 +1,15 @@
 import time
+import json
 
 DESC = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis ipsum est, et iaculis lacus tincidunt eget. Sed dictum diam ex, eget aliquam urna porta a.'
+
+def getDesc(e):
+    if e.get('output_length'):
+        return DESC[:e['output_length']]
+    if e.get('json_schema'):
+        return json.dumps(e['json_schema'])
+    return DESC
+
 
 def SceneXResponse(input):
     return {
@@ -16,16 +25,16 @@ def SceneXResponse(input):
                 'createdAt': int(time.time() * 1000),
                 'optOut': True if 'opt-out' in e['features'] else False,
                 'i18n': {
-                    l: DESC[:e['output_length'] if e.get('output_length') else len(DESC)] for l in e.get('languages', ['en'])
+                    l: getDesc(e) for l in e.get('languages', ['en'])
                 } if e.get('algorithm', 'Aqua') != 'Hearth' else {
                     l: [{
                             'isNarrator': True,
-                            'message': DESC[:e['output_length'] if e.get('output_length') else len(DESC)],
+                            'message': getDesc(e),
                             'name': 'Narrator'
                         },
                         {
                             'isNarrator': False,
-                            'message': DESC[:e['output_length'] if e.get('output_length') else len(DESC)],
+                            'message': getDesc(e),
                             'name': 'BobbyBoy'
                     }] for l in e.get('languages', ['en'])
                 },

@@ -1,3 +1,4 @@
+import json
 import sys
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -79,6 +80,28 @@ def test_image_url_input_shortened_answer():
         assert len(results[0]['i18n']['fr']) == 50
         assert results[0]['i18n'].get('de')
         assert len(results[0]['i18n']['de']) == 50
+
+
+def test_image_url_input_json_answer():
+    with mock_post_method(jinaai.SXClient):
+        input = 'https://picsum.photos/200'
+        r1 = jinaai.describe(input, { 'json_schema': {
+                'type': 'object',
+                'properties': {
+                    'headcount': {
+                        'type': 'number',
+                        'description': 'How many people in this image'
+                    }
+                }
+            }
+        })
+        results = r1['results']
+        assert results
+        assert len(results) == 1
+        assert len(results[0]['output']) > 0
+        assert len(results[0]['output']) > 50
+        assert results[0]['i18n'].get('en')
+        assert json.loads(results[0]['i18n']['en'])
 
 
 def test_image_url_input_heart_algo():

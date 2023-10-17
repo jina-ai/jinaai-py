@@ -5,6 +5,8 @@ def autoFillFeatures(options=None):
     features = options.get('features', []) if options else []
     if options and 'question' in options and 'question_answer' not in features:
         features.append('question_answer')
+    if options and 'json_schema' in options and 'json' not in features:
+        features.append('json')
     return features
 
 class SceneXClient(HTTPClient):
