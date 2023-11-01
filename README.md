@@ -175,6 +175,8 @@ output = JinaAI.describe(input, options)
 >| options['question']                    | None / str        | Question related to the picture(s)
 >| options['style']                       | None / str        | default / concise / prompt
 >| options['output_length']               | None / number     |
+>| options['json_schema']                 | None / dict       |
+>| options['callback_url']                | None / string     |
 
 - Output
 
