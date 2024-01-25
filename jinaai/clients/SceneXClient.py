@@ -43,7 +43,7 @@ class SceneXClient(HTTPClient):
         }
 
     def to_simplified_output(self, output):
-        if not output.get('result') or any(x.get('image') or x.get('video') for x in output['result']) is False:
+        if not output.get('result'):
             raise Exception('Remote API Error, bad output: {}'.format(json.dumps(output)))
         return {
             'results': [
