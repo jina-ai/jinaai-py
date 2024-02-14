@@ -8,7 +8,7 @@ class JinaChatClient(HTTPClient):
             'Content-Type': 'application/json',
         }
         mergedHeaders = defaultHeaders.update(headers)
-        super().__init__(baseUrl=baseUrl, headers=defaultHeaders, options=options)
+        super().__init__(baseUrl=baseUrl, headers=mergedHeaders, options=options)
 
     def from_array(self, input, options=None):
         return {
